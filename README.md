@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Hệ Thống Báo Cáo Kiểm Định Chất Lượng Đào Tạo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Mô Tả
 
-## Available Scripts
+Repository này chứa mã nguồn và tài liệu liên quan đến hệ thống báo cáo kiểm định chất lượng đào tạo. Hệ thống này được phát triển bằng ReactJS để tạo giao diện người dùng hiện đại và MongoDB để lưu trữ dữ liệu kiểm định. Ngoài ra, hệ thống sử dụng Google Drive API và Google Docs API để tạo và quản lý minh chứng đào tạo.
 
-In the project directory, you can run:
+## Các Tính Năng Chính
 
-### `npm start`
+1. **Quản lý Báo Cáo**: Tạo, chỉnh sửa, và xem lại báo cáo kiểm định chất lượng đào tạo. Hệ thống hỗ trợ nhiều loại báo cáo và tự động cập nhật dữ liệu từ nguồn MongoDB.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. **Quản lý Minh Chứng**: Liên kết và quản lý minh chứng đào tạo trên Google Drive. Minh chứng được tạo tự động và liên kết với báo cáo tương ứng.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. **Giao Diện Người Dùng Thân Thiện**: Giao diện người dùng được thiết kế để đơn giản, dễ sử dụng và thân thiện với người dùng.
 
-### `npm test`
+4. **Tích Hợp Google API**: Sử dụng Google Drive API và Google Docs API để tương tác với dữ liệu và tài liệu từ Google Drive và Google Docs.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Cài Đặt
 
-### `npm run build`
+### Yêu Cầu
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js và npm đã được cài đặt.
+- MongoDB đã được cài đặt và chạy.
+- Tạo một dự án trên [Google Cloud Console](https://console.developers.google.com/) để có được các khóa API cho Google Drive và Google Docs.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Bước 1: Sao Chép Dự Án
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+git clone https://github.com/your-username/quality-assurance-reporting.git
+cd quality-assurance-reporting
+```
 
-### `npm run eject`
+### Bước 2: Cài Đặt Gói Phụ Thuộc
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Bước 3: Cấu Hình Biến Môi Trường
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Tạo một tệp `.env` trong thư mục gốc của dự án và cung cấp các thông tin cấu hình cần thiết:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```plaintext
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/quality-assurance
+GOOGLE_DRIVE_CLIENT_ID=your-google-drive-client-id
+GOOGLE_DRIVE_CLIENT_SECRET=your-google-drive-client-secret
+GOOGLE_DOCS_CLIENT_ID=your-google-docs-client-id
+GOOGLE_DOCS_CLIENT_SECRET=your-google-docs-client-secret
+```
 
-## Learn More
+### Bước 4: Khởi Chạy Ứng Dụng
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm run dev
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Ứng dụng sẽ khởi chạy tại `http://localhost:3000`.
 
-### Code Splitting
+## Tài Liệu Tham Khảo
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- [React Documentation](https://reactjs.org/docs)
+- [MongoDB Documentation](https://docs.mongodb.com/)
+- [Google Drive API Documentation](https://developers.google.com/drive)
+- [Google Docs API Documentation](https://developers.google.com/docs)
 
-### Analyzing the Bundle Size
+## Tác Giả
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Tên: Minh Phạm
+- GitHub: [My github](https://github.com/minhphamhk123)
