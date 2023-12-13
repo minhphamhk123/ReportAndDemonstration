@@ -5,6 +5,7 @@ import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import cors from 'cors';
 dotenv.config();
 
 mongoose
@@ -19,6 +20,9 @@ mongoose
 const __dirname = path.resolve();
 
 const app = express();
+
+// Sử dụng cors middleware
+app.use(cors());
 
 app.use(express.static(path.join(__dirname, '/client/dist')));
 
