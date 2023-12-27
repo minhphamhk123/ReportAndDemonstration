@@ -10,6 +10,8 @@ import SignIn from "./pages/auth/SignIn";
 import SignUp from "./pages/auth/SignUp";
 import Profile from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
+import Verified from "./pages/auth/Verified";
+import Confirm from "./pages/auth/Confirm";
 
 // class App extends React.Component {
 
@@ -41,6 +43,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/confirm-email" element={<Confirm />} />
+        <Route path="/verified" element={<Verified />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
         </Route>
