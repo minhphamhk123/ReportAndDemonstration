@@ -5,7 +5,7 @@ import {
   signInSuccess,
   signInFailure,
 } from "../../redux/user/userSlice";
-import Background from "../../components/common/Background";
+import Background from "../../components/common/auth/Background";
 import { useDispatch, useSelector } from "react-redux";
 import OAuth from "../../components/OAuth";
 
@@ -44,7 +44,7 @@ export default function SignIn() {
   return (
     <div className="z-0 fixed w-full h-full">
       <Background />
-      <div className="h-full flex justify-center items-center">
+      <div className="h-full flex justify-center items-center relative z-10">
         <div className="m-3 z-10 py-5 px-10 md:px-20 md:py-10 shadow-2xl border max-w-2xl rounded-3xl gap-2">
           <h1 className="min-w-[100px] sm:min-w-[400px] text-3xl text-center font-semibold mb-7 ">
             Sign In

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Background from "../../components/common/Background";
+import Background from "../../components/common/auth/Background";
 import OAuth from "../../components/OAuth";
 
 export default function SignUp() {
@@ -40,7 +40,7 @@ export default function SignUp() {
   return (
     <div className="fixed w-full h-full">
       <Background />
-      <div className="h-full w-full flex justify-center items-center">
+      <div className="h-full w-full flex justify-center items-center relative z-10">
         <div className="z-10 py-5 px-10 md:px-20 md:py-10 m-5 shadow-2xl border max-w-2xl rounded-3xl gap-2">
           <h1 className="min-w-[400px] text-3xl text-center font-semibold mb-7">
             Sign Up
