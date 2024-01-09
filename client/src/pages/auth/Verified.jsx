@@ -1,11 +1,32 @@
 import React from "react";
 import Background from "../../components/common/auth/Background";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signInFailure, signInStart, signInSuccess } from "../../redux/user/userSlice";
 
 export default function Verified() {
   const navigate = useNavigate();
-  const handleContinue = () => {
-    navigate("/");
+  const dispatch = useDispatch();
+  const handleContinue = async () => {
+    try {
+      dispatch(signInStart());
+      const res = await fetch("http://localhost:3000/api/auth/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signInFailure(data));
+        return;
+      }
+      dispatch(signInSuccess(data));
+      navigate("/");
+    } catch (error) {
+      dispatch(signInFailure(error));
+    }
   };
 
   return (

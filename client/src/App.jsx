@@ -12,6 +12,7 @@ import Profile from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 import Verified from "./pages/auth/Verified";
 import Confirm from "./pages/auth/Confirm";
+import Dashboard from "./pages/Dashboard";
 
 // class App extends React.Component {
 
@@ -41,6 +42,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/confirm-email" element={<Confirm />} />

@@ -8,9 +8,9 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./redux/store.js";
 import Home from "./pages/Home.jsx";
+import { UserProvider } from "./contexts/UserContext.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-console.log("Da den trang chinh");
 root.render(
   // <GoogleOAuthProvider clientId="546285400637-58g3065b8fo0krcpul28m2e663bi02m1.apps.googleusercontent.com">
   //   <React.StrictMode>
@@ -20,7 +20,9 @@ root.render(
 
   <Provider store={store}>
     <PersistGate persistor={persistor} loading={null}>
-      <App />
+      <UserProvider>
+        <App />
+      </UserProvider>
     </PersistGate>
   </Provider>
 

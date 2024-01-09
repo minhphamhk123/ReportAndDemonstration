@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Background from "../../components/common/auth/Background";
-import LetterIcon from "../../common/images/letter_icon.png";
+import LetterIcon from "../../assets/images/letter_icon.png";
 import { Link, useNavigate } from "react-router-dom";
 import DynamicInputRow from "../../components/common/auth/DynamicInputRow";
 import { Info, Warning } from "../../components/common/Alert";
+import { useUser } from "../../contexts/UserContext";
 
 export default function Confirm() {
+  const { userData } = useUser();
   const [openAlert, setOpenAlert] = useState(false);
   const [resendTimeout, setResendTimeout] = useState(0);
   const [currentResendTimeout, setCurrentResendTimeout] = useState(0);
@@ -75,7 +77,9 @@ export default function Confirm() {
           </p>
           <p className="text-center font-semibold">
             <text className="block">We sent a verication link to</text>
-            <text className="block">email@gmail.com</text>
+            <text className="block">
+              {userData.email}
+            </text>
           </p>
 
           <DynamicInputRow
