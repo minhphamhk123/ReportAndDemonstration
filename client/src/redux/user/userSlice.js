@@ -14,7 +14,12 @@ const userSlice = createSlice({
       state.loading = true;
     },
     signInSuccess: (state, action) => {
-      state.currentUser = action.payload;
+      sessionStorage.setItem("TOKEN", action.payload.token);
+      sessionStorage.setItem("USER", action.payload.rest._id);
+      // console.log("token: ",action.payload.token)
+      // console.log("payload: ",action.payload)
+      // console.log("USER: ",sessionStorage.getItem("USER"))
+      state.currentUser = action.payload.rest;
       state.loading = false;
       state.error = false;
     },

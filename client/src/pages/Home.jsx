@@ -1,28 +1,47 @@
-import React from 'react';
+import { useEffect } from 'react';
+import Logo from '../components/Logo';
+import Loading from '../components/Loading';
+import DocCard from '../components/DocCard';
+import styles from '../styles/Home.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllPublicDocsAction } from '../redux/documents/docs.actions';
 
-export default function Home() {
-  return (
-    <div className='px-4 py-12 max-w-2xl mx-auto'>
-      <h1 className='text-3xl font-bold  mb-4 text-slate-800'>
-        Welcome to my App!
-      </h1>
-      <p className='mb-4 text-slate-700'>
-        This is a full-stack web application built with the MERN (MongoDB,
-        Express, React, Node.js) stack. It includes authentication features that
-        allow users to sign up, log in, and log out, and provides access to
-        protected routes only for authenticated users.
-      </p>
-      <p className='mb-4 text-slate-700'>
-        The front-end of the application is built with React and uses React
-        Router for client-side routing. The back-end is built with Node.js and
-        Express, and uses MongoDB as the database. Authentication is implemented
-        using JSON Web Tokens (JWT).
-      </p>
-      <p className='mb-4 text-slate-700'>
-        This application is intended as a starting point for building full-stack
-        web applications with authentication using the MERN stack. Feel free to
-        use it as a template for your own projects!
-      </p>
-    </div>
-  );
+function Home() {
+
+     const dispatch = useDispatch();
+     const { loading, error, publicDocs } = useSelector((state) => state.docs);
+
+     useEffect(() => {
+          dispatch(getAllPublicDocsAction())
+     }, [])
+
+     return (
+          <div className={styles.container}>
+               <div className={styles.banner}>
+                    <div>
+                         <Logo />
+                         <h1>
+                              Unlock your creativity and express your thoughts with ease. This document app is your canvas, where words come alive and ideas take flight
+                         </h1>
+                    </div>
+                    <div>
+                         <img src="/nha_a.jpg" alt="banner-image" />
+                    </div>
+               </div>
+               <h1 className={styles['articles-heading']}>Public <span>Documents</span></h1>
+               <div className={styles['articles-container']}>
+                    {
+                         loading ? <Loading /> :
+                              error ? <h1>Error...</h1> :
+                                   <div className={styles.articles}>
+                                        {
+                                             publicDocs.map(el => <DocCard key={el._id} data={el} />)
+                                        }
+                                   </div>
+                    }
+               </div>
+          </div>
+     )
 }
+
+export default Home

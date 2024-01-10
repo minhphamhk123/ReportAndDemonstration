@@ -1,21 +1,16 @@
 import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+
+import { connectDB } from './config/db.js';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
+import docsRouter from './routes/document.route.js';
+import { getSingleDoc } from "./controllers/document.controller.js";
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import cors from 'cors';
-dotenv.config();
-
-mongoose
-  .connect(process.env.Mongo)
-  .then(() => {
-    console.log('Connected to MongoDB');
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+import authCheck from './middleware/auth.middleware.js';
+import { Server } from 'socket.io';
+import Document from './models/document.model.js';
 
 const __dirname = path.resolve();
 
@@ -24,22 +19,58 @@ const app = express();
 // Sử dụng cors middleware
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, '/client/dist')));
+// app.use(express.static(path.join(__dirname, '/client/dist')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+// });
 
 app.use(express.json());
 
 app.use(cookieParser());
 
-app.listen(3000, () => {
-  console.log('Server listening on port 3000');
+// App listener
+const server = app.listen(process.env.PORT || 8080, async () => {
+  console.log(`Server running on port ${process.env.PORT || 8080}`);
+  try {
+    console.log('⏳ Database connecting...');
+    await connectDB;
+    console.log('✅ Database connected.');
+  } catch (error) {
+    console.log('❌ Error:', error);
+  }
 });
 
-app.use("/api/user", userRoutes);
 app.use('/api/auth', authRoutes);
+
+
+app.use('/docs', docsRouter); // Routes for documents
+//app.use(authCheck);
+app.use("/api/user", userRoutes);
+
+const io = new Server(server, {
+  cors: {
+    //origin: 'https://doc-depot-by-atanu.vercel.app',
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PATCH'],
+  },
+});
+
+io.on("connection", (socket) => {
+  socket.on("get-document", async documentId => {
+    const document = await getSingleDoc(documentId);
+    socket.join(documentId);
+    socket.emit("load-document", document);
+
+    socket.on("send-changes", delta => {
+      socket.broadcast.to(documentId).emit("receive-changes", delta);
+    });
+
+    socket.on("save-document", async data => {
+      await Document.findByIdAndUpdate(documentId, { doc: data });
+    });
+  });
+});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

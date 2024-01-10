@@ -2,14 +2,18 @@
 import React from 'react';
 // import { Editor } from '@tinymce/tinymce-react';
 // import { GoogleLogin } from '@react-oauth/google';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './pages/Home';
 import About from './pages/About';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
+import SingleDoc from './pages/SingleDoc';
+import MyDocs from './pages/MyDocs';
 import PrivateRoute from './components/PrivateRoute';
+import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 
 // class App extends React.Component {
 
@@ -35,7 +39,8 @@ function App() {
   return (
     <BrowserRouter>
       {/* header */}
-      <Header />
+      <Navbar/>
+      {/* <Header /> */}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
@@ -43,6 +48,8 @@ function App() {
         <Route path='/sign-up' element={<SignUp />} />
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} />
+          <Route path='/docs/:id' element={<SingleDoc />} />
+          <Route path='/my-docs' element={<MyDocs />} />
         </Route>
       </Routes>
     </BrowserRouter>
