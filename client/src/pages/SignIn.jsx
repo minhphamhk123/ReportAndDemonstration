@@ -22,7 +22,7 @@ export default function SignIn() {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await fetch('http://localhost:3000/api/auth/signin', {
+      const res = await fetch('http://localhost:8080/api/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,15 +31,16 @@ export default function SignIn() {
       });
       const data = await res.json();
       if (data.success === false) {
-        dispatch(signInFailure(data));
+        dispatch(signInFailure(data.user));
         return;
       }
-      dispatch(signInSuccess(data));
+      dispatch(signInSuccess(data.user));
       navigate('/');
     } catch (error) {
       dispatch(signInFailure(error));
     }
   };
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl text-center font-semibold my-7'>Sign In</h1>
