@@ -23,13 +23,10 @@ export const signin = async (req, res, next) => {
     if (!validUser) return next(errorHandler(404, 'User not found'));
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) return next(errorHandler(401, 'wrong credentials'));
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
     const { password: hashedPassword, ...rest } = validUser._doc;
     const expiryDate = new Date(Date.now() + 3600000); // 1 hour
-    res
-      .cookie('access_token', token, { httpOnly: true, expires: expiryDate })
-      .status(200)
-      .json(rest);
+    res.status(200).send({ message: "Login successful", user: { rest, token, expiryDate } });
   } catch (error) {
     next(error);
   }
@@ -42,13 +39,7 @@ export const google = async (req, res, next) => {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
       const { password: hashedPassword, ...rest } = user._doc;
       const expiryDate = new Date(Date.now() + 3600000); // 1 hour
-      res
-        .cookie('access_token', token, {
-          httpOnly: true,
-          expires: expiryDate,
-        })
-        .status(200)
-        .json(rest);
+      res.status(200).send({ message: "Login successful", user: { rest, token, expiryDate } });
     } else {
       const generatedPassword =
         Math.random().toString(36).slice(-8) +
