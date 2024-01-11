@@ -1,22 +1,51 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import Background from "../../components/common/auth/Background";
 import LetterIcon from "../../assets/images/letter_icon.png";
 import { Link, useNavigate } from "react-router-dom";
 import DynamicInputRow from "../../components/common/auth/DynamicInputRow";
-import { Info, Warning } from "../../components/common/Alert";
 import { useUser } from "../../contexts/UserContext";
+import EmailVerify from "../../components/common/EmailVerify";
+import { message } from "antd";
 
 export default function Confirm() {
   const { userData } = useUser();
-  const [openAlert, setOpenAlert] = useState(false);
+  const [isFirstTime, setIsFirstTime] = useState(true);
   const [resendTimeout, setResendTimeout] = useState(0);
   const [currentResendTimeout, setCurrentResendTimeout] = useState(0);
-  const navigate = useNavigate();
+  const [codeGenerated, setCodeGenerated] = useState(0);
   const [resultNumber, setResultNumber] = useState(null); //Giá trị người dùng nhập vào
+  const navigate = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content:
+        resultNumber.toString().length === 4
+          ? "Mã xác thực không đúng"
+          : "Vui lòng nhập mã xác thực!",
+    });
+  };
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "Đã gửi lại mã xác thực. Vui lòng kiểm tra email!",
+    });
+  };
+  const warning = () => {
+    messageApi.open({
+      type: "warning",
+      content: `Bạn có thể gửi lại mã sau ${currentResendTimeout}s`,
+    });
+  };
 
-  const showSuccess = () => {
-    // Viết câu lệnh gửi mã xác thực vào email ở đây
+  const handleVerifySuccess = () => {
+    // Update lại giá trị verified của user
 
+    navigate("/verified");
+  };
+
+  const handleSetTimeout = () => {
     setResendTimeout(30);
     const timer = setInterval(() => {
       setResendTimeout((prevResendTimeout) => {
@@ -31,40 +60,36 @@ export default function Confirm() {
 
   const handleVerify = () => {
     // Thực hiện hàm xử lý so sánh mã xác nhận
-    navigate("/verified");
+    codeGenerated === resultNumber ? handleVerifySuccess() : error();
   };
 
   const handleResend = () => {
-    // Mở thông báo cho người dùng
-    setOpenAlert(true);
     setCurrentResendTimeout(resendTimeout);
-    setTimeout(() => {
-      setOpenAlert(false);
-    }, 2000);
   };
 
   useEffect(() => {
-    if (currentResendTimeout === 0) {
-      showSuccess();
-    }
+    const fetchData = async () => {
+      if (currentResendTimeout === 0) {
+        try {
+          // Viết câu lệnh gửi mã xác thực vào email ở đây
+          const code = await EmailVerify({ email: userData.email });
+          setCodeGenerated(code);
+          handleSetTimeout();
+          isFirstTime ? setIsFirstTime(false) : success();
+        } catch (error) {
+          console.error("Lỗi quá trình gửi mã xác thực:", error);
+        }
+      } else {
+        warning();
+      }
+    };
+    fetchData();
   }, [currentResendTimeout]);
 
   return (
     <div className="fixed w-full h-full overflow-auto">
+      {contextHolder}
       <Background />
-      {currentResendTimeout === 0 ? (
-        <Info
-          title="Thông báo"
-          message={`Đã gửi lại mã xác thực. Vui lòng kiểm tra email!`}
-          open={openAlert}
-        />
-      ) : (
-        <Warning
-          title="Cảnh báo"
-          message={`Bạn có thể gửi lại mã sau ${currentResendTimeout}s`}
-          open={openAlert}
-        />
-      )}
       <div className="h-full flex justify-center items-start relative z-10">
         <div className="flex flex-col items-center gap-5 mt-20">
           <img
@@ -76,10 +101,8 @@ export default function Confirm() {
             Check your email
           </p>
           <p className="text-center font-semibold">
-            <text className="block">We sent a verication link to</text>
-            <text className="block">
-              {userData.email}
-            </text>
+            <p className="block">We sent a verication link to</p>
+            <p className="block">{userData.email}</p>
           </p>
 
           <DynamicInputRow
@@ -94,7 +117,7 @@ export default function Confirm() {
             Verify
           </button>
           <p className="text-center">
-            <text className="block">
+            <p className="inline-block">
               Didn’t receive the email?{" "}
               <p
                 className="font-medium text-black hover:underline hover:cursor-pointer hover:italic inline-block"
@@ -102,7 +125,7 @@ export default function Confirm() {
               >
                 Click to resend
               </p>
-            </text>
+            </p>
           </p>
           <Link to="/sign-in">
             <p className="gap-2 flex justify-center items-center text-center text-gray-500 hover:font-semibold cursor-pointer">
@@ -120,7 +143,7 @@ export default function Confirm() {
                   d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
                 />
               </svg>
-              <text className="inline-block">Back to login</text>
+              <p className="inline-block">Back to login</p>
             </p>
           </Link>
         </div>

@@ -2,9 +2,15 @@ import React from "react";
 import Background from "../../components/common/auth/Background";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { signInFailure, signInStart, signInSuccess } from "../../redux/user/userSlice";
+import { useUser } from "../../contexts/UserContext";
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from "../../redux/user/userSlice";
 
 export default function Verified() {
+  const { userData, setUserData } = useUser();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleContinue = async () => {
@@ -15,7 +21,10 @@ export default function Verified() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          email: userData.email,
+          password: userData.password,
+        }),
       });
       const data = await res.json();
       if (data.success === false) {
@@ -23,6 +32,7 @@ export default function Verified() {
         return;
       }
       dispatch(signInSuccess(data));
+      setUserData({ ...userData, password: null });
       navigate("/");
     } catch (error) {
       dispatch(signInFailure(error));
@@ -52,10 +62,10 @@ export default function Verified() {
             Email verified
           </p>
           <p className="text-center font-semibold">
-            <text className="block">
+            <p className="block">
               Your email has been successfully verify.
-            </text>
-            <text className="block">Click bellow to go to Home page</text>
+            </p>
+            <p className="block">Click bellow to go to Home page</p>
           </p>
           <button
             className="bg-emerald-400 text-white p-3 rounded-2xl uppercase hover:opacity-90 px-10 font-semibold"

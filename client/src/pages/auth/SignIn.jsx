@@ -12,7 +12,7 @@ import OAuth from "../../components/OAuth";
 export default function SignIn() {
   const [formData, setFormData] = useState({});
   const { loading, error } = useSelector((state) => state.user);
-
+  const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleChange = (e) => {
@@ -33,6 +33,7 @@ export default function SignIn() {
       const data = await res.json();
       if (data.success === false) {
         dispatch(signInFailure(data));
+        setShowError(true);
         return;
       }
       dispatch(signInSuccess(data));
@@ -79,7 +80,9 @@ export default function SignIn() {
             </Link>
           </div>
           <p className="text-red-700 mt-1 text-sm">
-            {error ? error.message || "Something went wrong!" : ""}
+            {error && showError
+              ? error.message || "Something went wrong!"
+              : null}
           </p>
         </div>
       </div>
