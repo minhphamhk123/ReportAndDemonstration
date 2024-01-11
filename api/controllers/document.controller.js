@@ -22,7 +22,8 @@ export const getUserSpecificDocs = async (req, res) => {
      const userId = req.headers.userid;
      console.log("userId: ", userId)
      try {
-          const docs = await Document.find({ author: userId });
+          //const docs = await Document.find({ author: userId });
+          const docs = await Document.find({ author: userId }).populate('author', '-password');
           // const user = await User.find({_id: userId})
           res.status(200).send({ message: "Success", data: docs });
      } catch (error) {

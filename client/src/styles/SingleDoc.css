@@ -82,7 +82,7 @@ main button:not(:disabled):active {
      flex-wrap: wrap;
      justify-content: center;
      position: sticky;
-     top: 55px;
+     top: 66px;
      z-index: 1;
      background-color: #f3f3f3;
      border: none;
