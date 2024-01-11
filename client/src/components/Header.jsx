@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
+import styles from "../styles/Navbar.module.css";
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';

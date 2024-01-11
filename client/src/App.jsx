@@ -15,7 +15,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Navbar from "./components/Navbar";
 import Verified from "./pages/auth/Verified";
 import Confirm from "./pages/auth/Confirm";
-import Dashboard from "./pages/dashboard";
+import Dashboard from "./pages/Dashboard";
 // import Navbar from './components/Navbar';
 
 // class App extends React.Component {
