@@ -1,6 +1,5 @@
-import styles from '../styles/Navbar.module.css';
-
 import { Link, useNavigate } from 'react-router-dom';
+import styles from "../styles/Navbar.module.css";
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -82,10 +81,10 @@ export default function Header() {
           <Link to='/'>
             <li>Home</li>
           </Link>
-          <Link to='/about'>
+          <Link to="/about">
             <li>About</li>
           </Link>
-          <Link to='/profile'>
+          <Link to="/profile">
             {currentUser ? (
               <img style={imageStyle} src={currentUser.profilePicture} alt='profile' className='h-7 w-7 rounded-full object-cover' />
             ) : (

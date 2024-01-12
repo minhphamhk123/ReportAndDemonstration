@@ -18,7 +18,6 @@ const app = express();
 
 // Sử dụng cors middleware
 app.use(cors());
-
 // app.use(express.static(path.join(__dirname, '/client/dist')));
 
 // app.get('*', (req, res) => {
@@ -28,7 +27,6 @@ app.use(cors());
 app.use(express.json());
 
 app.use(cookieParser());
-
 // App listener
 const server = app.listen(process.env.PORT || 8080, async () => {
   console.log(`Server running on port ${process.env.PORT || 8080}`);
@@ -73,8 +71,9 @@ io.on("connection", (socket) => {
 });
 
 app.use((err, req, res, next) => {
+  console.error(err.stack);
   const statusCode = err.statusCode || 500;
-  const message = err.message || 'Internal Server Error';
+  const message = err.message || "Internal Server Error";
   return res.status(statusCode).json({
     success: false,
     message,
