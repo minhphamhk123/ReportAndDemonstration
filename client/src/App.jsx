@@ -13,6 +13,7 @@ import SingleDoc from './pages/SingleDoc';
 import MyDocs from './pages/MyDocs';
 import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/Navbar';
+import GoogleDocsPage from './pages/GoogleDocs';
 // import Navbar from './components/Navbar';
 
 // class App extends React.Component {
@@ -50,6 +51,7 @@ function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/docs/:id' element={<SingleDoc />} />
           <Route path='/my-docs' element={<MyDocs />} />
+          <Route path='/docs-edit' element={<GoogleDocsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

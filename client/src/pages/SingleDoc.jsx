@@ -6,8 +6,11 @@ import { MdPublic } from 'react-icons/md';
 import { RxCross2 } from 'react-icons/rx';
 import { BsCheckLg } from 'react-icons/bs';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import { RiSaveFill } from "react-icons/ri";
 import { useParams, useNavigate } from 'react-router-dom';
 import { RiGitRepositoryPrivateFill } from 'react-icons/ri';
+import { FaGoogleDrive } from "react-icons/fa";
+import { HiOutlineComputerDesktop } from "react-icons/hi2";
 import { useEffect, useCallback, useState, useRef } from 'react';
 import { deleteDocAction, updateDocAction } from '../redux/documents/docs.actions';
 import useSocketConnection from '../customHooks/useSocketConnection';
@@ -48,6 +51,22 @@ function SingleDoc() {
      const [doc, setDoc] = useState({});
      const [isEditTitle, setIsEditTitle] = useState(false);
      const [userInfo, setUserInfo] = useState(sessionStorage.getItem("USER"));
+     const [showOptions, setShowOptions] = useState(false);
+
+     const handleButtonClick = () => {
+          setShowOptions(!showOptions); // Đảo ngược trạng thái hiển thị/ẩn
+     };
+
+     const saveToDrive = () => {
+          // Xử lý khi chọn "Lưu vào Google Drive"
+          console.log('Save to Drive');
+     };
+
+     const saveToLocal = () => {
+          // Xử lý khi chọn "Lưu vào máy tính"
+
+          console.log('Save to Local');
+     };
 
      // Connect to the socket server
      const socket = useSocketConnection("http://localhost:8080");
@@ -119,7 +138,7 @@ function SingleDoc() {
           (function () {
                window.scrollTo({
                     top: 0,
-                    behavior: 'smooth' 
+                    behavior: 'smooth'
                });
           })()
      }, [])
@@ -207,6 +226,15 @@ function SingleDoc() {
                               >{doc?.title}</h2>
                     }
                     <div>
+                         <div className='container-button-drop'>
+                              <button onClick={handleButtonClick}><RiSaveFill /> Save</button>
+                              {showOptions && (
+                                   <div className="save-options">
+                                        <button onClick={saveToDrive}><FaGoogleDrive/>Save to Google Drive</button>
+                                        <button onClick={saveToLocal}><HiOutlineComputerDesktop />Save to local</button>
+                                   </div>
+                              )}
+                         </div>
                          <button
                               disabled={userInfo !== doc.author}
                               onClick={handleViewChange}

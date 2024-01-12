@@ -152,10 +152,10 @@ function Navbar() {
                <ul>
                     <li>
                          <Link to='/'>
-                              <p>Home</p>
+                              <p className={styles.Link}>Home</p>
                          </Link>
                          <Link to='/about'>
-                              <p>About</p>
+                              <p className={styles.Link}>About</p>
                          </Link>
                     </li>
                     <li>
