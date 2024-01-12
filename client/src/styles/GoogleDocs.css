@@ -1,8 +1,10 @@
-iframe {
+iframe.google-docs-iframe {
   width: 100%;
-  height: 1000px;
+  height: 100vh; /* Sử dụng 100vh để chiều cao bằng 100% của viewport height */
 }
 
 body {
   height: 100%;
+  margin: 0; /* Loại bỏ margin mặc định của body */
+  overflow: hidden; /* Ngăn chặn trượt trang */
 }
