@@ -1,19 +1,22 @@
 // import './index.css ';
-import React from 'react';
+import React from "react";
 // import { Editor } from '@tinymce/tinymce-react';
 // import { GoogleLogin } from '@react-oauth/google';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './pages/Home';
 import About from './pages/About';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
+import SignIn from './pages/auth/SignIn';
+import SignUp from './pages/auth/SignUp';
 import Profile from './pages/Profile';
 import SingleDoc from './pages/SingleDoc';
 import MyDocs from './pages/MyDocs';
 import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/Navbar';
 import GoogleDocsPage from './pages/GoogleDocs';
+import Confirm from './pages/auth/Confirm';
+import Verified from './pages/auth/Verified';
+import Dashboard from './pages/Dashboard';
 // import Navbar from './components/Navbar';
 
 // class App extends React.Component {
@@ -40,13 +43,16 @@ function App() {
   return (
     <BrowserRouter>
       {/* header */}
-      <Navbar/>
+      <Navbar />
       {/* <Header /> */}
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/sign-in' element={<SignIn />} />
-        <Route path='/sign-up' element={<SignUp />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/confirm-email" element={<Confirm />} />
+        <Route path="/verified" element={<Verified />} />
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} />
           <Route path='/docs/:id' element={<SingleDoc />} />
@@ -55,7 +61,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
 export default App;

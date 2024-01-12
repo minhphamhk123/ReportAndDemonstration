@@ -6,7 +6,7 @@ const docsRouter = express.Router();
 
 // Routes for handling general document operations
 docsRouter.route('/')
-     .get(authCheck, getAllDocs) // Route for retrieving all documents
+     .get(getAllDocs) // Route for retrieving all documents
      .post(authCheck, postDoc); // Route for creating a new document
 
 
