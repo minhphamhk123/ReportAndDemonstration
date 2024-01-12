@@ -2,20 +2,18 @@
 import React from "react";
 // import { Editor } from '@tinymce/tinymce-react';
 // import { GoogleLogin } from '@react-oauth/google';
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
-import Header from "./components/Header";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import SignIn from "./pages/auth/SignIn";
-import SignUp from "./pages/auth/SignUp";
-import Profile from "./pages/Profile";
-import SingleDoc from "./pages/SingleDoc";
-import MyDocs from "./pages/MyDocs";
-import PrivateRoute from "./components/PrivateRoute";
-import Navbar from "./components/Navbar";
-import Verified from "./pages/auth/Verified";
-import Confirm from "./pages/auth/Confirm";
-import Dashboard from "./pages/Dashboard";
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import Header from './components/Header';
+import Home from './pages/Home';
+import About from './pages/About';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import Profile from './pages/Profile';
+import SingleDoc from './pages/SingleDoc';
+import MyDocs from './pages/MyDocs';
+import PrivateRoute from './components/PrivateRoute';
+import Navbar from './components/Navbar';
+import GoogleDocsPage from './pages/GoogleDocs';
 // import Navbar from './components/Navbar';
 
 // class App extends React.Component {
@@ -53,9 +51,10 @@ function App() {
         <Route path="/confirm-email" element={<Confirm />} />
         <Route path="/verified" element={<Verified />} />
         <Route element={<PrivateRoute />}>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/docs/:id" element={<SingleDoc />} />
-          <Route path="/my-docs" element={<MyDocs />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/docs/:id' element={<SingleDoc />} />
+          <Route path='/my-docs' element={<MyDocs />} />
+          <Route path='/docs-edit' element={<GoogleDocsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

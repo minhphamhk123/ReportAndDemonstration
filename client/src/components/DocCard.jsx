@@ -16,8 +16,7 @@ const getRandomBG = () => {
      return `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.4`
 }
  
-function DocCard({ data: { author, createdAt, title, isPublic, _id: docId } }) {
-     const { currentUser } = useSelector((state) => state.user);
+function DocCard({ data: { author: { profilePicture, username }, createdAt, title, isPublic, _id: docId } }) {
      return (
           <Link to={`/docs/${docId}`}>
                <article className={styles['doc-card']}>
@@ -26,12 +25,12 @@ function DocCard({ data: { author, createdAt, title, isPublic, _id: docId } }) {
                               className={styles['doc-profile-img']}
                               style={{ backgroundColor: getRandomBG() }}
                          >
-                              <img src={currentUser.profilePicture} alt="doc-image" />
+                              <img src={profilePicture} alt="doc-image" />
                          </div>
                          <div>
                               <p className={styles['doc-title']}>{title}</p>
                               <p className={styles['doc-user-info']}>
-                                   {`${currentUser.username} | ${getDateAndTime(createdAt)}`}
+                                   {`${username} | ${getDateAndTime(createdAt)}`}
                               </p>
                          </div>
                     </section>
