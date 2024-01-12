@@ -122,7 +122,7 @@ main button:not(:disabled):active {
 
 
 @media all and (width < 450px) {
-     .doc-info{
+     .doc-info {
           flex-direction: column;
           gap: 10px;
      }
@@ -130,4 +130,32 @@ main button:not(:disabled):active {
      .container .ql-editor {
           padding: 0.2in;
      }
+}
+
+.save-options {
+     display: flex;
+     flex-direction: column;
+     position: absolute;
+     background-color: #fff;
+     border: 1px solid #ddd;
+     border-radius: 4px;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     padding: 10px;
+     z-index: 1;
+}
+
+.save-options button {
+     margin: 5px 0;
+     color: inherit;
+     align-self: start;
+}
+
+.save-options button:last-child {
+     margin: 5px 0;
+     color: inherit;
+     text-align: left;
+}
+
+.container-button-drop {
+     z-index: 2;
 }
