@@ -3,8 +3,8 @@ iframe.google-docs-iframe {
   height: 100vh; /* Sử dụng 100vh để chiều cao bằng 100% của viewport height */
 }
 
-body {
+.container {
   height: 100%;
-  margin: 0; /* Loại bỏ margin mặc định của body */
-  overflow: hidden; /* Ngăn chặn trượt trang */
+  margin: 0; 
+  overflow: hidden; 
 }
