@@ -14,20 +14,21 @@ function MyDocs() {
      }, [])
 
      return (
-          <main>
-               <div className={styles['articles-container']}>
-                    {
-                         loading ? <Loading /> :
-                              error ? <h1>Error...</h1> :
-                                   <div className={styles.articles}>
-                                        {
-                                             privateDocs.map(el => <DocCard key={el._id} data={el} />)
-                                        }
-                                   </div>
-                    }
-               </div>
-          </main>
-     )
+       <main>
+         <div className={styles["articles-container"]}>
+           {loading ? (
+             <Loading />
+           ) : error ? (
+             <h1>Error...</h1>
+           ) : (
+             <div className={styles.articles}>
+               {privateDocs &&
+                 privateDocs.map((el) => <DocCard key={el._id} data={el} />)}
+             </div>
+           )}
+         </div>
+       </main>
+     );
 }
 
 export default MyDocs

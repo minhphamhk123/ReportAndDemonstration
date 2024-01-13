@@ -8,15 +8,24 @@ import {
   signInStart,
   signInSuccess,
 } from "../../redux/user/userSlice";
+import { message } from "antd";
 
 export default function Verified() {
   const { userData, setUserData } = useUser();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [messageApi, contextHolder] = message.useMessage();
+  const showError = (message) => {
+    messageApi.open({
+      key: "error",
+      type: "error",
+      content: message,
+    });
+  };
   const handleContinue = async () => {
     try {
       dispatch(signInStart());
-      const res = await fetch("http://localhost:3000/api/auth/signin", {
+      const res = await fetch("http://localhost:8080/api/auth/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,18 +38,22 @@ export default function Verified() {
       const data = await res.json();
       if (data.success === false) {
         dispatch(signInFailure(data));
+        showError("Xảy ra lỗi trong quá trình đăng nhập!");
         return;
       }
       dispatch(signInSuccess(data));
-      setUserData({ ...userData, password: null });
       navigate("/");
+      // setUserData(null);
     } catch (error) {
       dispatch(signInFailure(error));
+      console.error(error);
+      showError("Có lỗi trong quá trình xử lý! Vui lòng thử lại.");
     }
   };
 
   return (
     <div className="z-0 fixed w-full h-full">
+      {contextHolder}
       <Background />
       <div className="h-full flex justify-center items-start relative z-10">
         <div className="flex flex-col items-center gap-5 mt-20">
@@ -62,9 +75,7 @@ export default function Verified() {
             Email verified
           </p>
           <p className="text-center font-semibold">
-            <p className="block">
-              Your email has been successfully verify.
-            </p>
+            <p className="block">Your email has been successfully verify.</p>
             <p className="block">Click bellow to go to Home page</p>
           </p>
           <button

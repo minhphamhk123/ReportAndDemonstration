@@ -41,7 +41,7 @@ export default function Confirm() {
 
   const handleVerifySuccess = () => {
     // Update lại giá trị verified của user
-
+    
     navigate("/verified");
   };
 
