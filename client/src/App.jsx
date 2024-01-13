@@ -17,6 +17,7 @@ import GoogleDocsPage from './pages/GoogleDocs';
 import Confirm from './pages/auth/Confirm';
 import Verified from './pages/auth/Verified';
 import Dashboard from './pages/Dashboard';
+import Test from "./pages/test";
 // import Navbar from './components/Navbar';
 
 // class App extends React.Component {
@@ -58,6 +59,7 @@ function App() {
           <Route path='/docs/:id' element={<SingleDoc />} />
           <Route path='/my-docs' element={<MyDocs />} />
           <Route path='/docs-edit' element={<GoogleDocsPage />} />
+          <Route path='/test' element={<Test />} />
         </Route>
       </Routes>
     </BrowserRouter>
