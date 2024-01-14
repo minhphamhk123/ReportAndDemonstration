@@ -80,3 +80,42 @@ app.use((err, req, res, next) => {
     statusCode,
   });
 });
+//JSON.stringify(preContent, null, 2)
+app.post('/createDocumentWithContent', async (req, res) => {
+  try {
+    const accessToken = req.body.token;
+    const documentId = req.body.documentId;
+
+    const response = await fetch(`https://docs.googleapis.com/v1/${documentId}:batchUpdate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({
+        requests: [
+          {
+            insertText: {
+              location: {
+                index: 3, // Adjust the index based on your requirements
+              },
+              text: `https://docs.google.com/document/d/${documentId}`,
+            },
+          },
+        ],
+      }),
+    });
+
+    console.log(response);
+
+    if (!response.ok) {
+      throw new Error('Failed to create document with content');
+    }
+
+    const responseData = await response.json();
+    res.json({ documentId: responseData.documentId });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
