@@ -3,8 +3,27 @@ iframe.google-docs-iframe {
   height: 100vh; /* Sử dụng 100vh để chiều cao bằng 100% của viewport height */
 }
 
-.container {
+.container_GG_docs {
   height: 100%;
   margin: 0; 
   overflow: hidden; 
+}
+
+.container_GG_docs {
+  display: flex;
+  flex-direction: column;
+}
+
+.container_GG_docs > div {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px; /* Khoảng cách giữa nút và iframe */
+}
+
+.container_GG_docs button {
+  background-color: #4285f4; /* Màu của Google Drive */
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
 }

@@ -21,7 +21,7 @@ function Home() {
                     <div>
                          <Logo />
                          <h1>
-                              Unlock your creativity and express your thoughts with ease. This document app is your canvas, where words come alive and ideas take flight
+                              Topic 20: Building a website to manage report writing and demonstration in quality inspection
                          </h1>
                     </div>
                     <div>

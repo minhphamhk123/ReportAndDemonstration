@@ -25,7 +25,7 @@ function DocCard({ data: { author: { profilePicture, username }, createdAt, titl
                               className={styles['doc-profile-img']}
                               style={{ backgroundColor: getRandomBG() }}
                          >
-                              <img src={profilePicture} alt="doc-image" />
+                              <img src={profilePicture || '\Logo_UIT.png'} alt="doc-image" />
                          </div>
                          <div>
                               <p className={styles['doc-title']}>{title}</p>
