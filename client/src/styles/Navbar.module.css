@@ -230,5 +230,12 @@ li {
 }
 
 .Link {
-     color: #fff;
+     color: var(--primary-red-color);
+     font-size: large;
+}
+
+.button_create_doc {
+     margin-top: 15px;
+     background-color: aqua;
+     outline: 3px solid aqua;
 }

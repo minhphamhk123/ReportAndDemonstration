@@ -1,5 +1,5 @@
-// import './index.css ';
-import React from "react";
+import React, { useEffect } from "react";
+import { gapi } from 'gapi-script';
 // import { Editor } from '@tinymce/tinymce-react';
 // import { GoogleLogin } from '@react-oauth/google';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
@@ -17,6 +17,8 @@ import GoogleDocsPage from './pages/GoogleDocs';
 import Confirm from './pages/auth/Confirm';
 import Verified from './pages/auth/Verified';
 import Dashboard from './pages/Dashboard';
+import Test from "./pages/test";
+import GGDrive from "./pages/GGDrive";
 // import Navbar from './components/Navbar';
 
 // class App extends React.Component {
@@ -38,8 +40,21 @@ import Dashboard from './pages/Dashboard';
 //     );
 //   }
 // }
-
+const SCOPES = 'https://www.googleapis.com/auth/drive';
 function App() {
+
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+        clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+        scope: SCOPES,
+      })
+    };
+
+    gapi.load('client:auth2', start)
+  })
+
   return (
     <BrowserRouter>
       {/* header */}
@@ -58,6 +73,8 @@ function App() {
           <Route path='/docs/:id' element={<SingleDoc />} />
           <Route path='/my-docs' element={<MyDocs />} />
           <Route path='/docs-edit' element={<GoogleDocsPage />} />
+          <Route path='/test' element={<Test />} />
+          <Route path='/drive' element={<GGDrive />} />
         </Route>
       </Routes>
     </BrowserRouter>
