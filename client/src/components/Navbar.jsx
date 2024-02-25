@@ -268,7 +268,7 @@ function Navbar() {
           // console.log('Batch document with content:', responseDataBatch);
 
           // Thêm tài liệu vào thư mục đã tạo
-          const copyResponse = await fetch(`https://www.googleapis.com/drive/v3/files/1G_vfXVOP4yhpdHjDBNx4zS5v3-no1pupmUjlFEblfkE/copy`, {
+          const copyResponse = await fetch(`https://www.googleapis.com/drive/v3/files/1QWVYEQ3TBxEdsjYvSfCciKeaAVtkKLkzAA_ExhnKDuc/copy`, {
                method: 'POST',
                headers: {
                     Authorization: `Bearer ${accessToken}`,
